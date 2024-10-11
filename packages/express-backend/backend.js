@@ -56,6 +56,18 @@ app.post("/users", (req, res) => {
   res.send();
 });
 
+const removeUserById = (id) => {
+  const userToRemove = users["users_list"].find((user) => user["id"] === id);
+  users["users_list"].splice(userToRemove, 1);
+};
+
+app.delete("/users/:id", (req, res) => {
+  const id = req.params["id"]; //or req.params.id
+  removeUserById(id);
+  res.send();
+});
+
+
 const users = {
     users_list: [
       {
