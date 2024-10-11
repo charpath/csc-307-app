@@ -11,10 +11,22 @@ app.get("/", (req, res) => {
 
 app.get("/users", (req, res) => {
   const name = req.query.name;
+  const job = req.query.job;
+  console.log("Here!")
+  console.log(job)
   if (name != undefined) {
-    let result = findUserByName(name);
-    result = { users_list: result };
-    res.send(result);
+    if (job != undefined) {
+      console.log("Reached name/job branch")
+      let result = findUserByNameAndJob(name, job);
+      result = { users_list: result };
+      res.send(result);
+    }
+    else {
+      console.log("Reached name branch")
+      let result = findUserByName(name);
+      result = { users_list: result };
+      res.send(result);
+    }
   } else {
     res.send(users);
   }
@@ -29,6 +41,12 @@ app.listen(port, () => {
 const findUserByName = (name) => {
   return users["users_list"].filter(
     (user) => user["name"] === name
+  );
+};
+
+const findUserByNameAndJob = (name, job) => {
+  return users["users_list"].filter(
+    (user) => user["name"] === name && user["job"] == job
   );
 };
 
