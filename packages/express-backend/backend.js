@@ -12,17 +12,13 @@ app.get("/", (req, res) => {
 app.get("/users", (req, res) => {
   const name = req.query.name;
   const job = req.query.job;
-  console.log("Here!")
-  console.log(job)
   if (name != undefined) {
     if (job != undefined) {
-      console.log("Reached name/job branch")
       let result = findUserByNameAndJob(name, job);
       result = { users_list: result };
       res.send(result);
     }
     else {
-      console.log("Reached name branch")
       let result = findUserByName(name);
       result = { users_list: result };
       res.send(result);
