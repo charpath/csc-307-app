@@ -73,15 +73,17 @@ app.post("/users", (req, res) => {
   res.status(201).send({user : userToAdd})
 });
 
-const removeUserById = (id) => {
-  const userToRemove = users["users_list"].find((user) => user["id"] === id);
-  users["users_list"].splice(userToRemove, 1);
+const removeUser = (userToRemove) => {
+  const ind = users["users_list"].indexOf(userToRemove)
+  users["users_list"].splice(ind, 1);
 };
 
 app.delete("/users/:id", (req, res) => {
   const id = req.params["id"]; //or req.params.id
-  removeUserById(id);
-  res.send();
+  const userToRemove = users["users_list"].find((user) => user["id"] === id);
+  removeUser(userToRemove);
+  res.status(204).send()
+  //res.status(205).send("abcd")
 });
 
 
