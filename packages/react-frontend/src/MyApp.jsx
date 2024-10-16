@@ -40,8 +40,8 @@ function MyApp() {
 
   function updateList(person) {
   postUser(person)
-    .then((res) => {if (res.status === 201)
-      setCharacters([...characters, person])})
+    .then((res) => {if (res.status == 201) return res.json()})
+    .then((json) => {setCharacters([...characters, json["user"]])})
     .catch((error) => {
       console.log(error);
     });
