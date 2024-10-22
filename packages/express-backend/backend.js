@@ -40,21 +40,6 @@ app.listen(port, () => {
   );
 });
 
-/*const findUserByName = (name) => {
-  return users["users_list"].filter(
-    (user) => user["name"] === name
-  );
-};
-
-const findUserByNameAndJob = (name, job) => {
-  return users["users_list"].filter(
-    (user) => user["name"] === name && user["job"] == job
-  );
-};
-
-const findUserById = (id) =>
-  users["users_list"].find((user) => user["id"] === id);*/
-
 app.get("/users/:id", (req, res) => {
   const id = req.params["id"]; //or req.params.id
   let result = findUserById(id);
@@ -65,16 +50,11 @@ app.get("/users/:id", (req, res) => {
   }
 });
 
-/*const addUser = (user) => {
-  user["id"] = Math.floor(Math.random() * 99999)
-  users["users_list"].push(user);
-  return user;
-};*/
-
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
   addUser(userToAdd).then((result) =>
   res.status(201).send(result))
+  .catch((error) => {console.log(error)})
 });
 
 const removeUser = (userToRemove) => {
@@ -83,9 +63,8 @@ const removeUser = (userToRemove) => {
 };
 
 app.delete("/users/:id", (req, res) => {
-  /*const id = req.params["id"]; //or req.params.id
-  const userToRemove = users["users_list"].find((user) => user["id"] === id);*/
+
   findByIdAndDelete(req.params["id"]).then((result) => {
-  if (result) {res.status(204).send()
-  }
-});});
+  if (result) {res.status(204).send()}})
+    .catch((error) => {console.log(error)})
+});
